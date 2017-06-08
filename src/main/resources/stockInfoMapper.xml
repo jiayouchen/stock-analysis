@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stockInfoMapper">
+    <!-- 根据股票代码查询股票信息 -->
+    <select id="getStockInfoAsc" parameterType="Map" resultType="analysis.stock.model.StockInfo">
+        select * from (select * from (select * from
+        analysis_stockInfo where
+        stockCode = #{stockCode} and date &lt;= #{date} order by time desc) a group by a.date desc limit
+        #{limit}) as s order by date asc
+    </select>
+    <!-- 根据股票代码查询股票信息 -->
+    <select id="getStockInfoDesc" parameterType="Map" resultType="analysis.stock.model.StockInfo">
+        select * from (select * from stockInfo where
+        stockCode = #{stockCode} and date &lt;= #{date} order by time desc) a group by a.date desc limit #{limit}
+    </select>
+    <!-- 查询count -->
+    <select id="getCount" parameterType="Map" resultType="Integer">
+        select count(id) from stockInfo where stockName =
+        #{stockName} and stockCode = #{stockCode} and date = #{date} and time = #{time} and openningPrice =
+        #{openningPrice} and closingPrice = #{closingPrice} and currentPrice = #{currentPrice} and hPrice = #{hPrice}
+        and lPrice = #{lPrice};
+    </select>
+    <!-- 插入股票信息 -->
+    <insert id="addStockInfo" parameterType="analysis.stock.model.StockInfo">
+        insert into stockInfo
+        (stockName, stockCode, date, time,
+        openningPrice, closingPrice, currentPrice, hPrice, lPrice)
+        values(#{stockName}, #{stockCode}, #{date}, #{time},
+        #{openningPrice}, #{closingPrice}, #{currentPrice}, #{hPrice}, #{lPrice})
+    </insert>
+</mapper>
