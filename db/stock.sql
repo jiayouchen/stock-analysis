@@ -1,11 +1,4 @@
-CREATE TABLE `analysis_stock` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `stockCode` char(8) DEFAULT NULL COMMENT '股票代码',
-  `stockName` char(8) DEFAULT NULL COMMENT '股票名称',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `analysis_stockInfo` (
+CREATE TABLE `stock_analysis` (
     id bigint(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
     stockName CHAR(8) COMMENT '股票名称',
     stockCode CHAR(8) COMMENT '股票代码',
@@ -19,4 +12,4 @@ CREATE TABLE `analysis_stockInfo` (
     insertTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间戳',
     PRIMARY KEY USING BTREE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-create index index_stockCode_date_time on analysis_stockInfo(stockCode, date, time);
+create index index_stockCode_date_time on stock_analysis(stockCode, date, time);

@@ -5,10 +5,6 @@
 <mapper namespace="stockMapper">
     <!-- 查询股票代码 -->
     <select id="getStockCodes" parameterType="Map" resultType="analysis.stock.model.Stock">
-        select stockCode from analysis_stock group by stockCode
+        select code AS stockCode from stock_collect
     </select>
-    <!-- 插入股票代码 -->
-    <insert id="addStock" parameterType="analysis.stock.model.Stock">
-        insert into stock (stockCode) values(#{stockCode})
-    </insert>
 </mapper>

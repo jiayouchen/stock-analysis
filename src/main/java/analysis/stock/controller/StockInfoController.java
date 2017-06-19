@@ -30,6 +30,7 @@ public class StockInfoController {
 
     @RequestMapping(path = "/all/{limit:[0-9]*}", method = RequestMethod.GET)
     public ModelAndView stockInfo(@PathVariable int limit, ModelAndView modelAndView) {
+        System.out.println("all/{limit:[0-9]*} method ... ");
         List<StockInfo> stockInfoAll = new ArrayList<StockInfo>();
         List<Stock> stocks = stockDao.getStockCodes();
         for (Stock stock : stocks) {
