@@ -48,6 +48,8 @@ public class StockInfoController {
 
     @RequestMapping(path = "/all", method = RequestMethod.GET)
     public ModelAndView stockInfo(ModelAndView modelAndView) {
+        long startTime = System.currentTimeMillis();
+
         List<StockInfo> stockInfoAll = new ArrayList<StockInfo>();
         List<Stock> stocks = stockDao.getStockCodes();
         for (Stock stock : stocks) {
@@ -60,6 +62,10 @@ public class StockInfoController {
         String jsonString = JSON.toJSONString(stockInfoAll);
         modelAndView.addObject("jsonString", jsonString);
         modelAndView.setViewName("all");
+
+        System.out.println("*************************:查询耗时"
+                + (System.currentTimeMillis() - startTime) / 1000
+                + " 秒*************************");
         return modelAndView;
     }
 
