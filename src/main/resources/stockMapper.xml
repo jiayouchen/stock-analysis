@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="stockMapper">
+<mapper namespace="analysis.stock.dao.StockMapper">
     <!-- 查询股票代码 -->
-    <select id="getStockCodes" parameterType="Map" resultType="analysis.stock.model.Stock">
+    <select id="getStockCodes" resultType="analysis.stock.model.Stock">
         select code AS stockCode from stock_collect
     </select>
 </mapper>

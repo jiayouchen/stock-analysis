@@ -19,7 +19,7 @@ public class CalculateServiceImpl implements CalculateService {
     private StockInfoService stockInfoService;
 
     /**
-     * @param stockCode
+     * @param stockInfos
      *            :股票代码
      * @param date
      *            :日期

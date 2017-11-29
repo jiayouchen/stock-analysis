@@ -2,7 +2,7 @@ package analysis.stock.service.impl;
 
 import static java.lang.Double.parseDouble;
 
-import analysis.stock.dao.StockInfoDao;
+import analysis.stock.dao.StockInfoMapper;
 import analysis.stock.service.StockInfoService;
 import analysis.stock.util.DateUtil;
 import analysis.stock.model.StockInfo;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 public class StockInfoServiceImpl implements StockInfoService {
 
     @Resource(name = "stockInfoDao")
-    private StockInfoDao stockInfoDao;
+    private StockInfoMapper stockInfoDao;
 
     @Resource(name = "calculateService")
     private CalculateService calculateService;
@@ -379,37 +379,6 @@ public class StockInfoServiceImpl implements StockInfoService {
             }
         }
         return new StockInfo();
-    }
-
-    /**
-     * @param stockCode
-     *            股票代码
-     * @return 返回股票信息
-     */
-    public StockInfo saveStockInfo(String[] stockList) {
-        StockInfo stockInfo = new StockInfo();
-        try {
-            if(stockList.length > 31){
-                if ((DateUtil.parseTime(stockList[31]).after(DateUtil.parseTime("09:20:00")) && DateUtil.parseTime(stockList[31]).before(DateUtil.parseTime("11:40:00")))
-                        || (DateUtil.parseTime(stockList[31]).after(DateUtil.parseTime("12:50:00")) && DateUtil.parseTime(stockList[31]).before(DateUtil.parseTime("15:10:00")))) {
-                    stockInfo.setStockName(stockList[0].substring(stockList[0].indexOf("\"") + 1, stockList[0].length()));
-                    stockInfo.setStockCode(stockList[0].substring(11, 19));
-                    stockInfo.setDate(DateUtil.parseDate(stockList[30]));
-                    stockInfo.setTime(DateUtil.parseTime(stockList[31]));
-                    stockInfo.setOpenningPrice(parseDouble(stockList[1]));
-                    stockInfo.setClosingPrice(parseDouble(stockList[2]));
-                    stockInfo.setCurrentPrice(parseDouble(stockList[3]));
-                    stockInfo.sethPrice(parseDouble(stockList[4]));
-                    stockInfo.setlPrice(parseDouble(stockList[5]));
-                    if (stockInfo.getOpenningPrice() != 0 && stockInfoDao.getCount(stockInfo) == 0) {
-                        stockInfoDao.saveStockInfo(stockInfo);
-                    }
-                }
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return stockInfo;
     }
 
     /**
